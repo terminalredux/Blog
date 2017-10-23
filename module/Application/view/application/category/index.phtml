@@ -1,0 +1,22 @@
+<div class="jumbotron">
+    <h1><span class="zf-green">Kategorie</span></h1>
+    <a href="<?= $this->url('categories', ['action' => 'add']) ?>">Dodaj kategorie</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nazwa</th>
+            <th>Dodano</th>
+            <th>Zmodyfikowano</th>
+        </tr>
+        <?php foreach($categories as $category): ?>
+        <tr>
+            <td><?= $category->getId() ?></td>
+            <td><?= $category->getName() ?></td>
+            <td><?= $category->getCreatedAt() ?></td>
+            <td><?= $category->getUpdatedAt() ?></td>
+            <td><a href="<?= $this->url('categories', ['action' => 'edit', 'id' => $category->getId()]); ?>">Edytuj</a></td>
+            <td><a href="<?= $this->url('categories', ['action' => 'delete', 'id' => $category->getId()]); ?>">Usuń</a></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+</div>

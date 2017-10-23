@@ -34,14 +34,29 @@ return [
                     ],
                 ],
             ],
+            'categories' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/categories[/:action][/:id]',
+                    'defaults' => [
+                        'controller' => Controller\CategoryController::class,
+                        'action' => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => function($sm) {
                 $categoryService = $sm->get('Application\Model\CategoryTable');
-                
+
                 return new Controller\IndexController($categoryService);
+            },
+            Controller\CategoryController::class => function($sm) {
+                $categoryService = $sm->get('Application\Model\CategoryTable');
+
+                return new Controller\CategoryController($categoryService);
             }
         ],
     ],

@@ -19,5 +19,11 @@ class CategoryTable
         }
         return $row;
     }
+    
+    public function getBy() 
+    {
+        $result = $this->tableGateway->select();
+        return $result;
+    }
 }
 
