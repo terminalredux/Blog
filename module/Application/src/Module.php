@@ -7,6 +7,11 @@
 
 namespace Application;
 
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\TableGateway\TableGateway;
+use Application\Model\Category;
+use Application\Model\CategoryTable;
+
 class Module
 {
     const VERSION = '3.0.3-dev';
@@ -14,5 +19,25 @@ class Module
     public function getConfig()
     {
         return include __DIR__ . '/../config/module.config.php';
+    }
+    
+    public function getServiceConfig() {
+        return [
+            'factories' => [
+                'CategoryTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    
+                    $resultSetPrototype = new ResultSet;
+                    $resultSetPrototype->setArrayObjectPrototype(new Category());
+                    return new TableGateway('category', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Application\Model\CategoryTable' => function ($sm) {
+                    $tableGateway = $sm->get('CategoryTableGateway');
+                    $table = new CategoryTable($tableGateway);
+                    
+                    return $table;
+                }
+            ],
+        ];
     }
 }

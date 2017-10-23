@@ -38,7 +38,11 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
+            Controller\IndexController::class => function($sm) {
+                $categoryService = $sm->get('Application\Model\CategoryTable');
+                
+                return new Controller\IndexController($categoryService);
+            }
         ],
     ],
     'view_manager' => [
