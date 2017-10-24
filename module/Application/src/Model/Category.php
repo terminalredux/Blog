@@ -1,8 +1,22 @@
 <?php
 namespace Application\Model;
 
-class Category 
+use Zend\Hydrator\Exception\DomainException;
+use Zend\Filter\ {
+    StringTrim,
+    StripTags,
+    ToInt
+};
+use \Zend\InputFilter\ {
+    InputFilter,
+    InputFilterAwareInterface,
+    InputFilterInterface
+};
+use Zend\Validator\StringLength;
+
+class Category implements InputFilterAwareInterface
 {
+    private $inputFilter;
     public $id;
     public $name;
     public $created_at;
@@ -30,4 +44,54 @@ class Category
     function getUpdatedAt() {
         return $this->updated_at;
     }
+    
+    public function getArrayCopy() {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName()
+        ];
+    }
+
+    public function getInputFilter(): InputFilterInterface {
+        if ($this->inputFilter) {
+            return $this->inputFilter;
+        }
+        $inputFilter = new InputFilter();
+        
+        $inputFilter->add([
+            'name' => 'id',
+            'required' => true,
+            'filters' => [
+                ['name' => ToInt::class]
+            ],
+        ]);
+        
+        $inputFilter->add([
+            'name' => 'name',
+            'required' => true,
+            'filters' => [
+                ['name' => StripTags::class],
+                ['name' => StringTrim::class]
+            ],
+            'validators' => [
+                [
+                    'name' => StringLength::class,
+                    'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 100,
+                    ],
+                ]
+            ]
+        ]);
+        
+        $this->inputFilter = $inputFilter;
+        return $this->inputFilter;
+        
+    }
+
+    public function setInputFilter(InputFilterInterface $inputFilter): InputFilterAwareInterface {
+        throw new DomainException('Ta kalsa nie obsługuje dodawnai dodatkowych filtrów wejsciowych');
+    }
+
 }

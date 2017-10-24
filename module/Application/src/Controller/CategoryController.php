@@ -5,7 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\CategoryTable;
 use Application\Model\Category;
-use Application\Model\CategoryForm;
+use Application\Form\CategoryForm;
 
 class CategoryController extends AbstractActionController
 {
