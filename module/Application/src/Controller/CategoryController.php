@@ -48,4 +48,41 @@ class CategoryController extends AbstractActionController
         $this->categoryTable->save($categoryModel);
         return $this->redirect()->toRoute('categories');
     }
+    
+    public function editAction() 
+    {
+        $view = new ViewModel();
+        $categoryId = (int) $this->params()->fromRoute('id');
+        $view->setVariable('categoryId', $categoryId);
+        
+        if (0 == $categoryId) {
+            return $this->redirect()->toRoute('categories', ['action' => 'add']);
+        }
+        try {
+            $categoryRow = $this->categoryTable->getById($categoryId);
+        } catch (\Exception $e) {
+            return $this->redirect()->toRoute('categories', ['action' => 'index']);
+        }
+        
+        $categoryForm = new CategoryForm();
+        $categoryForm->bind($categoryRow);
+        $categoryForm->get('submit')->setAttribute('value', 'Zapisz');
+        
+        $request = $this->getRequest();
+        $view->setVariable('categoryForm', $categoryForm);
+        
+        if (!$request->isPost()) {
+            return $view;
+        }
+        
+        $categoryForm->setInputFilter($categoryRow->getInputFilter());
+        $categoryForm->setData($request->getPost());
+        
+        if (!$categoryForm->isValid()) {
+            return $view;
+        }
+        
+        $this->categoryTable->save($categoryRow);
+        return $this->redirect()->toRoute('categories', ['action' => 'index']);
+    }
 }

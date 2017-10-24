@@ -1,0 +1,13 @@
+<div class="jumbtron">
+    <h1><span class="zf-green">Edytuj kategorie <?= $categoryId ?></span></h1>
+    
+    <?php
+        $categoryForm->setAttribute('action', $this->url('categories', ['action' => 'edit', 'id' => $categoryId ]));
+        $categoryForm->prepare();
+    ?>
+    <?= $this->form()->openTag($categoryForm) ?>
+    <?= $this->formHidden($categoryForm->get('id')) ?>
+    <?= $this->formRow($categoryForm->get('name')) ?>
+    <?= $this->formSubmit($categoryForm->get('submit')) ?>
+    <?= $this->form()->closeTag() ?>
+</div>

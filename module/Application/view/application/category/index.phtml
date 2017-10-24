@@ -1,19 +1,22 @@
 <div class="jumbotron">
     <h1><span class="zf-green">Kategorie</span></h1>
-    <a href="<?= $this->url('categories', ['action' => 'add']) ?>">Dodaj kategorie</a>
-    <table>
+    <a href="<?= $this->url('categories', ['action' => 'add']) ?>" class="btn btn-default" role="button">Dodaj kategorie</a>
+    <br><br>
+    <table class="table table-striped">
         <tr>
             <th>ID</th>
             <th>Nazwa</th>
             <th>Dodano</th>
             <th>Zmodyfikowano</th>
+            <th></th>
+            <th></th>
         </tr>
         <?php foreach($categories as $category): ?>
         <tr>
             <td><?= $category->getId() ?></td>
             <td><?= $category->getName() ?></td>
-            <td><?= $category->getCreatedAt() ?></td>
-            <td><?= $category->getUpdatedAt() ?></td>
+            <td><?= date('Y-m-d H:i:s', $category->getCreatedAt()) ?></td>
+            <td><?= date('Y-m-d H:i:s', $category->getUpdatedAt()) ?></td>
             <td><a href="<?= $this->url('categories', ['action' => 'edit', 'id' => $category->getId()]); ?>">Edytuj</a></td>
             <td><a href="<?= $this->url('categories', ['action' => 'delete', 'id' => $category->getId()]); ?>">Usuń</a></td>
         </tr>
