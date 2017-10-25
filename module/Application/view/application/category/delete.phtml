@@ -1,0 +1,12 @@
+<div class="jumbotron">
+    <h1><span class="zf-green">Usuwanie kategorii</span></h1>
+    
+    <p>Potwierdź usunięcie kategorii: <?= $category->getName() ?></p>
+    <form action="<?= $this->url('categories', ['action' => 'delete', 'id' => $id]) ?>" method="post">
+        <div class="form-group">
+            <input type="hidden" name="id" value="<?= (int) $category->getId() ?>">
+            <input type="submit" class="btn btn-danger" name="del" value="Usuń">
+            <input type="submit" class="btn btn-success" name="del" value="Anuluj">
+        </div>
+    </form>
+</div>

@@ -85,4 +85,28 @@ class CategoryController extends AbstractActionController
         $this->categoryTable->save($categoryRow);
         return $this->redirect()->toRoute('categories', ['action' => 'index']);
     }
+    
+    public function deleteAction() 
+    {
+        $categoryId = (int) $this->params()->fromRoute('id');
+        
+        if (empty($categoryId)) {
+            return $this->redirect()->toRoute('categories');
+        }
+        
+        $request = $this->getRequest();
+        
+        if ($request->isPost()) {
+            $del = $request->getPost('del', 'Anuluj');
+            if ($del == 'Usuń') {
+                $categoryId = (int) $request->getPost('id');
+                $this->categoryTable->delete($categoryId);
+            }
+            return $this->redirect()->toRoute('categories');
+        }
+        return [
+            'id' => $categoryId,
+            'category' => $this->categoryTable->getById($categoryId)
+        ];
+    }
 }
