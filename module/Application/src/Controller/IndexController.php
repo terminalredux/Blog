@@ -22,14 +22,6 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
         $view = new ViewModel();
-        $model = $this->categoryTable;
-        $row = $model->getById(1);
-        
-        $view->setVariable('id', $row->getId());
-        $view->setVariable('name', $row->getName());
-        $view->setVariable('created_at', $row->getCreatedAt());
-        $view->setVariable('updated_at', $row->getUpdatedAt());
-                
         return $view;
     }
 }

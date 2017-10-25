@@ -11,6 +11,8 @@ use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Application\Model\Category;
 use Application\Model\CategoryTable;
+use Application\Model\Article;
+use Application\Model\ArticleTable;
 
 class Module
 {
@@ -34,6 +36,19 @@ class Module
                 'Application\Model\CategoryTable' => function ($sm) {
                     $tableGateway = $sm->get('CategoryTableGateway');
                     $table = new CategoryTable($tableGateway);
+                    
+                    return $table;
+                },
+                'ArticleTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    
+                    $resultSetPrototype = new ResultSet;
+                    $resultSetPrototype->setArrayObjectPrototype(new Category());
+                    return new TableGateway('article', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Application\Model\ArticleTable' => function ($sm) {
+                    $tableGateway = $sm->get('ArticleTableGateway');
+                    $table = new ArticleTable($tableGateway);
                     
                     return $table;
                 }

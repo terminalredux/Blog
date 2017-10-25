@@ -1,0 +1,29 @@
+<div class="jumbotron">
+    <h1><span class="zf-green">Artykuły</span></h1>
+    <a href="<?= $this->url('articles', ['action' => 'add']) ?>" class="btn btn-default" role="button">Dodaj artykuł</a>
+    <br><br>
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Tytuł</th>
+            <th>Treść</th>
+            <th>Opublikowano</th>
+            <th>Dodano</th>
+            <th>Zmodyfikowano</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <?php foreach($articles as $article): ?>
+        <tr>
+            <td><?= $article->getId() ?></td>
+            <td><?= $article->getName() ?></td>
+            <td><?= $article->getContent() ?></td>
+            <td><?= $article->getPublished() ?></td>
+            <td><?= date('Y-m-d H:i:s', $article->getCreatedAt()) ?></td>
+            <td><?= date('Y-m-d H:i:s', $article->getUpdatedAt()) ?></td>
+            <td><a href="<?= $this->url('articles', ['action' => 'edit', 'id' => $article->getId()]); ?>">Edytuj</a></td>
+            <td><a href="<?= $this->url('articles', ['action' => 'delete', 'id' => $article->getId()]); ?>">Usuń</a></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+</div>
