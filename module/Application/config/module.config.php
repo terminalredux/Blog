@@ -63,15 +63,15 @@ return [
 
                 return new Controller\IndexController($categoryService);
             },
-            Controller\ArticleController::class => function($sm) {
-                $articleService = $sm->get('Application\Model\ArticleTable');
-                
-                return new Controller\ArticleController($articleService);
-            },
             Controller\CategoryController::class => function($sm) {
                 $categoryService = $sm->get('Application\Model\CategoryTable');
 
                 return new Controller\CategoryController($categoryService);
+            },
+            Controller\ArticleController::class => function($sm) {
+                $articleService = $sm->get('Application\Model\ArticleTable');
+                
+                return new Controller\ArticleController($articleService);
             }
         ],
     ],

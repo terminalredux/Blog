@@ -1,0 +1,15 @@
+<div class="jumbtron">
+    <h1><span class="zf-green">Nowy artykuł</span></h1>
+    
+    <?php
+        $articleForm->setAttribute('action', $this->url('articles', ['action' => 'add']));
+        $articleForm->prepare();
+    ?>
+    <?= $this->form()->openTag($articleForm) ?>
+    <?= $this->formHidden($articleForm->get('id')) ?>
+    <?= $this->formRow($articleForm->get('title')) ?>
+    <?= $this->formRow($articleForm->get('content')) ?>
+    <?= $this->formRow($articleForm->get('published')) ?>
+    <?= $this->formSubmit($articleForm->get('submit')) ?>
+    <?= $this->form()->closeTag() ?>
+</div>

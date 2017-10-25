@@ -1,4 +1,5 @@
 <?php
+namespace Application\Model;
 
 use Zend\Hydrator\Exception\DomainException;
 use Zend\Filter\ {
@@ -119,7 +120,7 @@ class Article implements InputFilterAwareInterface
         
         $inputFilter->add([
             'name' => 'published',
-            'required' => true,
+            'required' => false,
             'filters' => [
                 ['name' => ToInt::class]
             ],

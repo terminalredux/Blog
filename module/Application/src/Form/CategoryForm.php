@@ -25,7 +25,7 @@ class CategoryForm extends Form {
             'type' => 'submit',
             'attributes' => [
                 'value' => 'Dodaj',
-                'id' => 'saveUserForm',
+                'id' => 'saveCategoryForm',
             ]
         ]);
         $this->setAttribute('method', 'POST');

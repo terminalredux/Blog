@@ -43,7 +43,7 @@ class Module
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     
                     $resultSetPrototype = new ResultSet;
-                    $resultSetPrototype->setArrayObjectPrototype(new Category());
+                    $resultSetPrototype->setArrayObjectPrototype(new Article());
                     return new TableGateway('article', $dbAdapter, null, $resultSetPrototype);
                 },
                 'Application\Model\ArticleTable' => function ($sm) {

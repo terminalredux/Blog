@@ -16,7 +16,7 @@
         <?php foreach($articles as $article): ?>
         <tr>
             <td><?= $article->getId() ?></td>
-            <td><?= $article->getName() ?></td>
+            <td><?= $article->getTitle() ?></td>
             <td><?= $article->getContent() ?></td>
             <td><?= $article->getPublished() ?></td>
             <td><?= date('Y-m-d H:i:s', $article->getCreatedAt()) ?></td>
