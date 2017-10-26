@@ -78,7 +78,7 @@ class Category implements InputFilterAwareInterface
                     'name' => StringLength::class,
                     'options' => [
                         'encoding' => 'UTF-8',
-                        'min' => 1,
+                        'min' => 3,
                         'max' => 100,
                     ],
                 ]
@@ -87,7 +87,6 @@ class Category implements InputFilterAwareInterface
         
         $this->inputFilter = $inputFilter;
         return $this->inputFilter;
-        
     }
 
     public function setInputFilter(InputFilterInterface $inputFilter): InputFilterAwareInterface {

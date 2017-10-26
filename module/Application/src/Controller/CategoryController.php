@@ -18,6 +18,7 @@ class CategoryController extends AbstractActionController
     
     public function indexAction()
     {
+        $flashMessegner = $this->flashMessenger();
         $view = new ViewModel();
         $rows = $this->categoryTable->getBy();
         
@@ -46,6 +47,7 @@ class CategoryController extends AbstractActionController
         
         $categoryModel->exchangeArray($categoryForm->getData());
         $this->categoryTable->save($categoryModel);
+        $this->flashMessenger()->setNamespace('success')->addMessage('New category has been created!');
         return $this->redirect()->toRoute('categories');
     }
     
@@ -91,6 +93,7 @@ class CategoryController extends AbstractActionController
         $categoryId = (int) $this->params()->fromRoute('id');
         
         if (empty($categoryId)) {
+            $this->flash('error', 'Nie podano ID kategorii do usunięcia!');
             return $this->redirect()->toRoute('categories');
         }
         
@@ -100,6 +103,7 @@ class CategoryController extends AbstractActionController
             $del = $request->getPost('del', 'Anuluj');
             if ($del == 'Usuń') {
                 $categoryId = (int) $request->getPost('id');
+                $this->flash('success', 'Kategoria usunięta!');
                 $this->categoryTable->delete($categoryId);
             }
             return $this->redirect()->toRoute('categories');
@@ -109,4 +113,12 @@ class CategoryController extends AbstractActionController
             'category' => $this->categoryTable->getById($categoryId)
         ];
     }
+    
+    protected function flash($messageType, $text) 
+    {
+         return $this->flashMessenger()
+                 ->setNamespace($messageType)
+                 ->addMessage($text);
+    }
+    
 }

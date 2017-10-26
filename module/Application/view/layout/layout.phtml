@@ -45,6 +45,17 @@
             </div>
         </nav>
         <div class="container">
+            <?php 
+            $flash = $this->flashMessenger();
+            $flash->setMessageOpenFormat('<div%s>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                &times;
+            </button>
+            <div>')->setMessageCloseString('</div></div>');
+
+            echo $flash->render('error', ['alert', 'alert-dismissable', 'alert-danger']);
+            echo $flash->render('success', ['alert', 'alert-dismissable', 'alert-success']);
+            ?>
             <?= $this->content ?>
             <hr>
             <footer>
